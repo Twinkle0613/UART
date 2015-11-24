@@ -5,22 +5,22 @@
 #include "Rcc.h"
 
 
-// void HASH_UART5_IRQHandler(){
-	// int status = RNG_reg->RNG_SR;
-	// if(status == 1)
-		// randomValue = RNG_reg->RNG_DR;
-	// else
-		// RNG_reg->RNG_SR = 0;
 
-	// entered++;
+void UART5_IRQHandler(){
 
-// }
+
+
+
+}
+
 
 int main(){
+
+	HAL_NVIC_EnableIRQ(UART5_IRQn);
     gpioUnresetEnableClock(PORTC);
     gpioUnresetEnableClock(PORTD);
     configureIntPin(GPIO_MODE_INPUT,2,PORTD); // RX PD2
-    configurePin(GPIO_MODE_OUTPUT,12,PORTC);  // TX PC12
+    configureOutPin(GPIO_MODE_OUTPUT,12,PORTC);  // TX PC12
     configureUART(UART5);
     uartUnresetEnableClock();
 

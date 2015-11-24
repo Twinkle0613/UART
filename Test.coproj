@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Project version="2G - 2.0.2" name="Test">
   <Target name="Test" isCurrent="1">
-    <Device manufacturerId="9" manufacturerName="ST" chipId="287" chipName="STM32F429ZI" boardId="" boardName=""/>
+    <Device manufacturerId="9" manufacturerName="ST" chipId="287" chipName="STM32F429ZI" boardId="" boardName="" coreId="" coreName=""/>
     <BuildOption>
       <Compile>
         <Option name="OptimizationLevel" value="0"/>
@@ -69,18 +69,20 @@
     <ExcludeFile/>
   </Target>
   <Components path="./"/>
+  <LocalComponents/>
   <Files>
     <File name="app/Rcc.c" path="app/Rcc.c" type="1"/>
-    <File name="hardware/stm32f4xx_hal_rcc.c" path="driver/hardware/stm32f4xx_hal_rcc.c" type="1"/>
     <File name="app/UART.c" path="app/UART.c" type="1"/>
+    <File name="hardware/stm32f4xx_hal_rcc.c" path="driver/hardware/stm32f4xx_hal_rcc.c" type="1"/>
     <File name="hardware/stm32f4xx_hal_gpio.h" path="driver/hardware/stm32f4xx_hal_gpio.h" type="1"/>
     <File name="core/core_cmInstr.h" path="driver/core/core_cmInstr.h" type="1"/>
     <File name="hardware/stm32f4xx_hal_cortex.h" path="driver/hardware/stm32f4xx_hal_cortex.h" type="1"/>
     <File name="app" path="" type="2"/>
     <File name="core/core_cmFunc.h" path="driver/core/core_cmFunc.h" type="1"/>
-    <File name="app/Gpio.c" path="app/Gpio.c" type="1"/>
     <File name="hardware/stm32_hal_legacy.h" path="../../../CoIDE/workspace/STM32Cube_FW_F4_V1.5.0/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h" type="1"/>
+    <File name="app/Gpio.c" path="app/Gpio.c" type="1"/>
     <File name="config" path="" type="2"/>
+    <File name="app/BaudRateAlgorithm.c" path="app/BaudRateAlgorithm.c" type="1"/>
     <File name="core/core_cm4.h" path="driver/core/core_cm4.h" type="1"/>
     <File name="config/startup_stm32f429xx.s" path="../../../CoIDE/workspace/UART/driver/config/startup_stm32f429xx.s" type="1"/>
     <File name="config/system_stm32f4xx.h" path="driver/config/system_stm32f4xx.h" type="1"/>
@@ -95,11 +97,13 @@
     <File name="config/stm32f4xx.h" path="driver/config/stm32f4xx.h" type="1"/>
     <File name="hardware/stm32f4xx_hal.h" path="driver/hardware/stm32f4xx_hal.h" type="1"/>
     <File name="hardware" path="" type="2"/>
+    <File name="config/stm32f429xx.h" path="driver/config/stm32f429xx.h" type="1"/>
     <File name="config/stm32f4xx_hal_conf.h" path="driver/config/stm32f4xx_hal_conf.h" type="1"/>
     <File name="core/core_cmSimd.h" path="driver/core/core_cmSimd.h" type="1"/>
-    <File name="config/stm32f429xx.h" path="driver/config/stm32f429xx.h" type="1"/>
     <File name="app/UART.h" path="app/UART.h" type="1"/>
+    <File name="app/BaudRateAlgorithm.h" path="app/BaudRateAlgorithm.h" type="1"/>
     <File name="hardware/stm32f4xx_hal_cortex.c" path="driver/hardware/stm32f4xx_hal_cortex.c" type="1"/>
     <File name="app/Rcc.h" path="app/Rcc.h" type="1"/>
   </Files>
+  <Bookmarks/>
 </Project>

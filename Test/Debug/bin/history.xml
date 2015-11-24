@@ -1,17 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <history>
    <processor signature="arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -g2 -Map=Test.map -O0 --gc-sections -LC:/Users/D203C-01/coide/workspace/uart -TC:/Users/D203C-01/coide/workspace/uart/stm32f429zi_flash.ld -g">
-      <target file="Test.elf" lastModified="15133a3410c">
-         <source file="..\obj\Rcc.o" lastModified="15132b3fad3"/>
-         <source file="..\obj\UART.o" lastModified="151339247ef"/>
-         <source file="..\obj\stm32f4xx_hal_rcc.o" lastModified="15132b3fd68"/>
-         <source file="..\obj\Gpio.o" lastModified="15132b3ffed"/>
-         <source file="..\obj\startup_stm32f429xx.o" lastModified="15132b3fb95"/>
-         <source file="..\obj\stm32f4xx_hal_gpio.o" lastModified="15132b400df"/>
-         <source file="..\obj\main.o" lastModified="15133a33e89"/>
-         <source file="..\obj\system_stm32f4xx.o" lastModified="1513394cdc4"/>
-         <source file="..\obj\stm32f4xx_hal.o" lastModified="15132b3fc69"/>
-         <source file="..\obj\stm32f4xx_hal_cortex.o" lastModified="15132b3fe38"/>
+      <target file="Test.elf" lastModified="1513826afba">
+         <source file="..\obj\Rcc.o" lastModified="1513822f654"/>
+         <source file="..\obj\UART.o" lastModified="1513826208e"/>
+         <source file="..\obj\stm32f4xx_hal_rcc.o" lastModified="151381ead77"/>
+         <source file="..\obj\Gpio.o" lastModified="1513822f836"/>
+         <source file="..\obj\BaudRateAlgorithm.o" lastModified="15138261f76"/>
+         <source file="..\obj\startup_stm32f429xx.o" lastModified="151381eab3d"/>
+         <source file="..\obj\stm32f4xx_hal_gpio.o" lastModified="151381eb079"/>
+         <source file="..\obj\main.o" lastModified="1513826ad60"/>
+         <source file="..\obj\system_stm32f4xx.o" lastModified="151381eaedf"/>
+         <source file="..\obj\stm32f4xx_hal.o" lastModified="151381eac55"/>
+         <source file="..\obj\stm32f4xx_hal_cortex.o" lastModified="151381eae53"/>
       </target>
    </processor>
 </history>

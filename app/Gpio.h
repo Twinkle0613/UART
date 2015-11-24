@@ -1,6 +1,6 @@
 #ifndef __Gpio_H__
 #define __Gpio_H__
-#include "Rcc.h"
+//#include "Rcc.h"
 #include <stdint.h>
 #include "stm32f4xx_hal_gpio.h"
 #define GPIO_OUTPUT GPIO_MODE_OUTPUT_PP

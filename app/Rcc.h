@@ -3,7 +3,11 @@
 
 //Reset_and_Clock_Control
 #include <stdint.h>
+#include "Gpio.h"
 #include "stm32f4xx_hal_gpio.h"
+
+
+
 void gpioUnresetEnableClock(GPIO *port);
 
 typedef struct RCC_t rcc;
