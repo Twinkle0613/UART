@@ -1,0 +1,3 @@
+you need you add "STM32F429_439xx" in the configuration of CoIDE 
+
+STM32Cube_FW_F4_V1.5.0/Drivers/STM32F4xx_HAL_Driver/STM32F439xx_User_Manual.chm
