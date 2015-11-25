@@ -12,7 +12,7 @@ void baudRateSetting(int baudRate,int fpclk, uint32_t* pgmValue){
   mantissa = (uint32_t)DIV;
   floatNumber = ( DIV - mantissa ) * 8;
   fraction = roundOff(floatNumber);
-  *pgmValue = ( (mantissa << 4 ) | fraction ) & 0x00000FFF;
+  *pgmValue = ( (mantissa << 4 ) | fraction ) & 0x0000FFFF;
 }
 
 

@@ -1,6 +1,7 @@
 #include "UART.h"
 #include "Rcc.h"
 #include "BaudRateAlgorithm.h"
+#inlcude "stdlib.h"
 /*
  *  ----Documentation----
  *  The configuration can be separate in three of part such as RCC,GPIO and UART.
@@ -99,21 +100,37 @@ uartUnresetEnableClock(void){
 }
 
 
-/*
+int getBit( uint32_t* reg, int posBit ){
+  uint32_t store = *reg;
+  return (( store >> posBit) & 1 );
+}
 
-	uartPtr->CR1 &= ~( 1 << 13 );
-	uartPtr->CR1 |=  1 << 13;
-  //Word length (M) in bit 12
-	uartPtr->CR1 &= ~( 1 << 12 );
-	uartPtr->CR1 |=  1 << 12;
-  //Parity control enable (PCE) in bit 10
-	uartPtr->CR1 &= ~( 1 << 10 );
-    uartPtr->CR1 |=  1 << 10;
-  //Parity selection (PS) in bit 9
-  //  eg. if PS = 0 , data = 00110101 , parity bit is 0
-    uartPtr->CR1 &= ~( 1 << 9 );
-    uartPtr->CR1 |=  0 << 9;
-    
-            //   0X08000000
-            */
+void putData( uint8_t* Data){
+   uint8_t butter;
+   while( *Data != NULL){
+      butter = *Data++;
+      sendData(buffer);
+   }
+}
 
+#define TXE 7
+void sendData(uint8_t Data){
+   while( getBit(UART5->SR,TXE) );
+   UART5->DR = Data;
+}
+
+void getData(uint8_t* Data){
+  uint8_t i = 0;
+  Data[i] = receivedData();
+  while(Data[i] != '\r'){
+    i++;
+    Data[i] = receivedData();
+  }
+      Data[i] = '\0';
+}
+
+#define RXNE 5
+uint8_t receivedData(void){
+   while( !getBit(UART5->SR,RXNE) );
+   return UART5->DR;
+}
