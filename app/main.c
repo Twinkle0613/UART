@@ -3,8 +3,9 @@
 #include "Gpio.h"
 //#include "stdint.h"
 #include "Rcc.h"
+#include "UART.h";
 
-
+uint8_t* readStr;
 
 void UART5_IRQHandler(){
    
@@ -27,7 +28,7 @@ int main(){
     configureUART(UART5);
     uartUnresetEnableClock();
     uint8_t* str = "ABC";
-    uint8_t* readStr;
+
  while(1){
     putData(str);
  }

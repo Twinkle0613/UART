@@ -18,6 +18,11 @@ void getData(uint8_t* Data);
 void putData( uint8_t* Data);
 void sendData(uint8_t Data);
 uint8_t receivedData(void);
+
+#define RXNE 5
+#define TXE 7
+
+
 #define UART5_BASE_ADDRESS 0x40005000
 #define UART4_BASE_ADDRESS 0x40004fff
 #define UART5	((UART *)UART5_BASE_ADDRESS)

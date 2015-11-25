@@ -11,7 +11,7 @@
       <source file="..\..\..\..\..\..\CoIDE\workspace\STM32Cube_FW_F4_V1.5.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rng.h" lastModified="14c0ebfff30">
          <include file="..\..\..\driver\hardware\stm32f4xx_hal_def.h"/>
       </source>
-      <source file="..\..\..\app\BaudRateAlgorithm.c" lastModified="15138155a84">
+      <source file="..\..\..\app\BaudRateAlgorithm.c" lastModified="1513cf4eab9">
          <include file="..\..\..\app\BaudRateAlgorithm.h"/>
       </source>
       <source file="..\..\..\..\..\..\CoIDE\workspace\STM32Cube_FW_F4_V1.5.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd_ex.h" lastModified="14c0ebfff30">
@@ -259,8 +259,6 @@
          <include file="..\..\..\driver\hardware\stm32f4xx_hal_def.h"/>
          <include file="..\..\..\..\..\..\CoIDE\workspace\STM32Cube_FW_F4_V1.5.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2s_ex.h"/>
       </source>
-      <source file="..\..\..\app\UART.h" lastModified="15138155aa2">
-      </source>
       <source file="..\..\..\..\..\..\CoIDE\workspace\STM32Cube_FW_F4_V1.5.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_spi.h" lastModified="14c0ebff760">
          <include file="..\..\..\driver\hardware\stm32f4xx_hal_def.h"/>
       </source>
@@ -271,11 +269,6 @@
       <source file="..\..\..\app\Rcc.h" lastModified="1513821ac45">
          <include file="..\..\..\app\Gpio.h"/>
          <include file="..\..\..\driver\hardware\stm32f4xx_hal_gpio.h"/>
-      </source>
-      <source file="..\..\..\app\UART.c" lastModified="15138261404">
-         <include file="..\..\..\app\UART.h"/>
-         <include file="..\..\..\app\Rcc.h"/>
-         <include file="..\..\..\app\BaudRateAlgorithm.h"/>
       </source>
       <source file="..\..\..\app\Rcc.c" lastModified="1513820a90b">
          <include file="..\..\..\app\Rcc.h"/>

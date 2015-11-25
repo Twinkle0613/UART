@@ -1,7 +1,9 @@
 #include "UART.h"
 #include "Rcc.h"
 #include "BaudRateAlgorithm.h"
-#inlcude "stdlib.h"
+#include "stdlib.h"
+
+
 /*
  *  ----Documentation----
  *  The configuration can be separate in three of part such as RCC,GPIO and UART.
@@ -109,11 +111,11 @@ void putData( uint8_t* Data){
    uint8_t butter;
    while( *Data != NULL){
       butter = *Data++;
-      sendData(buffer);
+      sendData(butter);
    }
 }
 
-#define TXE 7
+
 void sendData(uint8_t Data){
    while( getBit(UART5->SR,TXE) );
    UART5->DR = Data;
@@ -129,7 +131,7 @@ void getData(uint8_t* Data){
       Data[i] = '\0';
 }
 
-#define RXNE 5
+
 uint8_t receivedData(void){
    while( !getBit(UART5->SR,RXNE) );
    return UART5->DR;
