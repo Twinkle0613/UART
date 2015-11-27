@@ -84,11 +84,27 @@
 
 
 
-configureUART(UART* uartPtr){
-	//UART *uartPtr = UART5_BASE_ADDRESS;
-  uartPtr->CR1 = 0x000031FC;
-  uartPtr->CR2 = 0x00000000;
-  baudRateSetting(115200,HAL_RCC_GetPCLK1Freq(),uartPtr->BRR); 
+configureUART(UART* uartPtr,int baudRate, uint32_t parity, uint32_t stopBit, uint32_t wordLength){
+
+  uartPtr->CR1 &= ~( 1 << 10);
+  uartPtr->CR1 |= ( parity << 10);
+
+  uartPtr->CR1 &= ~( 1 << 12);
+  uartPtr->CR1 |= ( wordLength << 12);
+
+  uartPtr->CR2 &= ~( 3 << 12);
+  uartPtr->CR2 |= ( stopBit << 12);
+
+  uartPtr->CR1 &= ~( 1 << 13);
+  uartPtr->CR1 |= ( UART_ENABLE << 13);
+
+  uartPtr->CR1 &= ~( 1 << 2);
+  uartPtr->CR1 |= ( UART_RECEIVER_ENABLE << 2);
+
+  uartPtr->CR1 &= ~( 1 << 3);
+  uartPtr->CR1 |= ( UART_TRANSMITTER_ENABLE << 3);
+
+  uartPtr->BRR = baudRateSetting(baudRate,HAL_RCC_GetPCLK1Freq());
 }
 
 
@@ -107,9 +123,13 @@ int getBit( uint32_t* reg, int posBit ){
   return (( store >> posBit) & 1 );
 }
 
-void putData( uint8_t* Data){
+int getUART5StatusBit( int posBit ){
+  return (( UART5->SR  >> posBit) & 1 );
+}
+
+void putData(uint8_t* Data){
    uint8_t butter;
-   while( *Data != NULL){
+   while(*Data != NULL){
       butter = *Data++;
       sendData(butter);
    }
@@ -117,22 +137,22 @@ void putData( uint8_t* Data){
 
 
 void sendData(uint8_t Data){
-   while( getBit(UART5->SR,TXE) );
+   while( !getUART5StatusBit(TXE) );
    UART5->DR = Data;
 }
 
-void getData(uint8_t* Data){
+void getData(uint8_t Data[]){
+
   uint8_t i = 0;
   Data[i] = receivedData();
   while(Data[i] != '\r'){
     i++;
     Data[i] = receivedData();
   }
-      Data[i] = '\0';
+    Data[i] = '\0';
 }
 
-
 uint8_t receivedData(void){
-   while( !getBit(UART5->SR,RXNE) );
+   while( !getUART5StatusBit(RXNE) );
    return UART5->DR;
 }

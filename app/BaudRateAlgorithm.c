@@ -1,7 +1,9 @@
 #include "BaudRateAlgorithm.h"
 #include "stdint.h"
 //#include "stdlib.h"
-void baudRateSetting(int baudRate,int fpclk, uint32_t* pgmValue){
+
+uint32_t baudRateSetting(int baudRate,int fpclk){
+  uint32_t pgmValue;
   float DIV;
   uint32_t mantissa;
   uint32_t fraction;
@@ -12,7 +14,8 @@ void baudRateSetting(int baudRate,int fpclk, uint32_t* pgmValue){
   mantissa = (uint32_t)DIV;
   floatNumber = ( DIV - mantissa ) * 8;
   fraction = roundOff(floatNumber);
-  *pgmValue = ( (mantissa << 4 ) | fraction ) & 0x0000FFFF;
+  pgmValue = ( (mantissa << 4 ) | fraction ) & 0x0000FFFF;
+  return pgmValue;
 }
 
 
