@@ -17,31 +17,29 @@ void UART5_IRQHandler(){
    
    //UART5->SR = 0;  //clear status
 }
-
+//HAL_NVIC_EnableIRQ(UART5_IRQn);
 
 int main(){
 
-    //HAL_NVIC_EnableIRQ(UART5_IRQn);
-	configurePin(GPIO_MODE_OUTPUT,PIN_14,PORTG); // for LD14
-    //configurePin(GPIO_MODE_OUTPUT,PIN_13,PORTG); // for LD13
-
-    gpioUnresetEnableClock(PORTC);
-    gpioUnresetEnableClock(PORTD);
-    configureIntPin(GPIO_MODE_INPUT,2,PORTD);    // RX PD2
-    configureOutPin(GPIO_MODE_OUTPUT,12,PORTC);  // TX PC12
+    configureAlterFuncPin(2,PORTD,8);   //RX PD2
+    configureAlterFuncPin(12,PORTC,8);  //TX PC12
+	configureOutPin(GPIO_MODE_OUTPUT,PIN_14,PORTG); // for LD14
+	configureOutPin(GPIO_MODE_OUTPUT,PIN_13,PORTG); // for LD14
     configureUART(UART5,9600,UART_PARITY_DISABLE,UART_STOPBITS_1,UART_WORDLENGTH_8B);
-    uartUnresetEnableClock();
     uint8_t butter[25];
+    uint32_t checkSR;
  while(1){
+	 writeSet(PORTG,14);
 
-   putData("Hello World");  // keep do it send data
-   if( getUART5StatusBit(RXNE) ){ // check the receive flag
-	   writeSet(PORTG,14);
+     putData("HJK");  // keep do it send data
+     UART5->SR = checkSR;
+   if( getUART5StatusBit(RXNE) ){ // receiver received data.
+	   UART5->SR = checkSR;
+	   writeSet(PORTG,13);
 	   getData(butter);
-	   printf("%s\n", butter);
    }
-   writeReset(PORTG,14);
-
+   writeReset(PORTG,13);
+   UART5->SR = checkSR;
  }
 
 

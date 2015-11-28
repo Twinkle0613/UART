@@ -39,7 +39,7 @@ configureIntPin(int direction,int pinNum, GPIO* port){
 
 
 configureOutPin(int direction, int pinNum, GPIO *port){
-	GPIO_InitTypeDef gpio;
+
 
 	 gpioUnresetEnableClock(port);
 	 port->MODER &= ~( 3 << (pinNum *2));         //build mask first
@@ -50,6 +50,39 @@ configureOutPin(int direction, int pinNum, GPIO *port){
 
 	 port->OSPEED &= ~( 3 << (pinNum *2));
 	 port->OSPEED |= HIGH_SPEED << (pinNum *2);
+
+}
+
+configureAlterFuncPin(int pinNum, GPIO *port, int valueAFR){
+	gpioUnresetEnableClock(port);
+	uint32_t checkMODER;
+	uint32_t checkPUPDR;
+	uint32_t checkOTYPER;
+	uint32_t checkAFRL;
+	uint32_t checkAFRH;
+   //The value of alternate function register that is AF8(1000) for UART5 TX and RX
+	 port->MODER &= ~( 3 << (pinNum *2));         //build mask first
+	 port->MODER |= GPIO_MODE_ALFUNCTION << (pinNum *2);
+
+	 port->PUPDR &= ~( 3 << (pinNum *2));
+	 port->PUPDR |= PULL_UP << (pinNum *2);
+
+	 port->OTYPER &= ~( 3 << (pinNum));
+	 port->OTYPER |= OUTPUT_OPEN_DRAIN << (pinNum);
+
+	 if(pinNum > 7){
+ 	  port->AFRH &= ~( 15 << ( (pinNum%8) * 4 ));
+	  port->AFRH |= valueAFR << ( (pinNum%8) * 4 );
+	 }else{
+      port->AFRL &= ~( 15 << ( pinNum * 4 ));
+      port->AFRL |= valueAFR << ( pinNum * 4 );
+	 }
+
+	 checkMODER = port->MODER;
+	 checkPUPDR = port->PUPDR;
+	 checkOTYPER = port->OTYPER;
+	 checkAFRL = port->AFRL;
+	 checkAFRH = port->AFRH;
 
 }
 

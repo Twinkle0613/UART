@@ -85,7 +85,11 @@
 
 
 configureUART(UART* uartPtr,int baudRate, uint32_t parity, uint32_t stopBit, uint32_t wordLength){
+  uartUnresetEnableClock();
 
+  uint32_t checkCR1;
+  uint32_t checkCR2;
+  uint32_t checkBRR;
   uartPtr->CR1 &= ~( 1 << 10);
   uartPtr->CR1 |= ( parity << 10);
 
@@ -105,6 +109,10 @@ configureUART(UART* uartPtr,int baudRate, uint32_t parity, uint32_t stopBit, uin
   uartPtr->CR1 |= ( UART_TRANSMITTER_ENABLE << 3);
 
   uartPtr->BRR = baudRateSetting(baudRate,HAL_RCC_GetPCLK1Freq());
+  checkCR1 = uartPtr->CR1;
+  checkCR2 = uartPtr->CR2;
+  checkBRR = uartPtr->BRR;
+
 }
 
 
@@ -129,30 +137,36 @@ int getUART5StatusBit( int posBit ){
 
 void putData(uint8_t* Data){
    uint8_t butter;
+   uint32_t checkSR = UART5->SR;
    while(*Data != NULL){
       butter = *Data++;
       sendData(butter);
    }
+   UART5->SR = checkSR;
 }
 
 
 void sendData(uint8_t Data){
+   uint32_t checkSR = UART5->SR;
    while( !getUART5StatusBit(TXE) );
-   UART5->DR = Data;
+   checkSR = UART5->SR;
+   UART5->DR = Data ;  //The word length of data is 8,so Data and with 0x0ff;
 }
 
 void getData(uint8_t Data[]){
-
+	uint8_t checkReCeiDAta;
   uint8_t i = 0;
-  Data[i] = receivedData();
+  Data[i] = receivedData() & (uint8_t)0x0ff;
+  checkReCeiDAta = Data[i];
   while(Data[i] != '\r'){
     i++;
-    Data[i] = receivedData();
+    Data[i] = receivedData() & (uint8_t)0x0ff;
+    checkReCeiDAta = Data[i];
   }
     Data[i] = '\0';
 }
 
 uint8_t receivedData(void){
-   while( !getUART5StatusBit(RXNE) );
+   while( !getUART5StatusBit(RXNE) ); // if RXNE = 1, The input of data is received.
    return UART5->DR;
 }

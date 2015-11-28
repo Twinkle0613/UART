@@ -34,8 +34,8 @@ uint8_t receivedData(void);
 #define UART_STOPBITS_1 ((uint32_t)0x00000000)
 #define UART_STOPBITS_2 ((uint32_t)0x00000010)
 
-#define UART_PARITY_ENABLE ((uint32_t)0x00000000)
-#define UART_PARITY_DISABLE ((uint32_t)0x00000001)
+#define UART_PARITY_ENABLE ((uint32_t)0x00000001)
+#define UART_PARITY_DISABLE ((uint32_t)0x0000000)
 
 #define UART_ENABLE ((uint32_t)0x00000001)
 #define UART_DISABLE ((uint32_t)0x00000000)
