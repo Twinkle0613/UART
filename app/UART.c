@@ -75,17 +75,12 @@
    *
    *
    * */
-// CR2
-//  00000000 00000000 00000000 00000000   
-// CR1
-//binary  00000000 00000000 00110001 11111100   
-//Hex       00         00       31      FC
 
 
 
-
-configureUART(UART* uartPtr,int baudRate, uint32_t parity, uint32_t stopBit, uint32_t wordLength){
-  uartUnresetEnableClock();
+///UART configuration
+void configureUART(UART* uartPtr,int baudRate, uint32_t parity, uint32_t stopBit, uint32_t wordLength){
+  uart5UnresetEnableClock();
 
   uint32_t checkCR1;
   uint32_t checkCR2;
@@ -115,8 +110,8 @@ configureUART(UART* uartPtr,int baudRate, uint32_t parity, uint32_t stopBit, uin
 
 }
 
-
-uartUnresetEnableClock(void){
+//Unable Reset and Enable Clock for UART5
+void uart5UnresetEnableClock(void){
   rcc* rccPtr = RCC_BASE_ADDRESS;
   rccPtr->APB1ENR &= ~( 1 << 20 );
   rccPtr->APB1ENR |=  1 << 20;
@@ -125,14 +120,66 @@ uartUnresetEnableClock(void){
   rccPtr->APB1RSTR |=  0 << 20;
 }
 
-
-int getBit( uint32_t* reg, int posBit ){
-  uint32_t store = *reg;
-  return (( store >> posBit) & 1 );
+int readySend(){
+  return getUART5Status(TXE);
 }
 
-int getUART5StatusBit( int posBit ){
+int readyReceived(){
+  return getUART5Status(RXNE);
+}
+
+int getUART5Status( int posBit ){
+  uint32_t checkSR = UART5->SR;
   return (( UART5->SR  >> posBit) & 1 );
+}
+
+void sendByle(uint8_t Data){
+  while( !readySend() );
+   UART5->DR = Data;
+}
+
+uint8_t receivedByle(void){
+   uint32_t checkSR = UART5->SR;
+   while( !readyReceived() ); // if RXNE = 1, The input of data is received.
+   uint32_t checkDR = UART5->DR;
+   return UART5->DR;
+
+}
+
+
+
+
+
+
+
+
+/*
+uint8_t receivedData(void){
+   uint32_t checkSR = UART5->SR;
+   while( !getUART5Status(RXNE) ); // if RXNE = 1, The input of data is received.
+   uint32_t checkDR = UART5->DR;
+   return UART5->DR;
+}
+
+void getData(uint8_t Data[]){
+	uint8_t checkReCeiDAta;
+  uint8_t i = 0;
+  Data[i] = receivedByle() & (uint8_t)0x0ff;
+  checkReCeiDAta = Data[i];
+  uint32_t checkSR = UART5->SR;
+  while(Data[i] != '\r'){
+    i++;
+    Data[i] = receivedByle() & (uint8_t)0x0ff;
+    checkReCeiDAta = Data[i];
+  }
+    Data[i] = '\0';
+}
+
+void sendData(uint8_t* Data){
+   uint32_t checkSR = UART5->SR;
+   while( !getUART5Status(TXE) );
+   checkSR = UART5->SR;
+   UART5->DR = *Data ;  //The word length of data is 8,so Data and with 0x0ff;
 }
 
 void putData(uint8_t* Data){
@@ -145,28 +192,8 @@ void putData(uint8_t* Data){
    UART5->SR = checkSR;
 }
 
-
-void sendData(uint8_t Data){
-   uint32_t checkSR = UART5->SR;
-   while( !getUART5StatusBit(TXE) );
-   checkSR = UART5->SR;
-   UART5->DR = Data ;  //The word length of data is 8,so Data and with 0x0ff;
+int haveReceivedData(){
+   return getUART5Status(RXNE);
 }
 
-void getData(uint8_t Data[]){
-	uint8_t checkReCeiDAta;
-  uint8_t i = 0;
-  Data[i] = receivedData() & (uint8_t)0x0ff;
-  checkReCeiDAta = Data[i];
-  while(Data[i] != '\r'){
-    i++;
-    Data[i] = receivedData() & (uint8_t)0x0ff;
-    checkReCeiDAta = Data[i];
-  }
-    Data[i] = '\0';
-}
-
-uint8_t receivedData(void){
-   while( !getUART5StatusBit(RXNE) ); // if RXNE = 1, The input of data is received.
-   return UART5->DR;
-}
+*/
