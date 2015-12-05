@@ -10,8 +10,8 @@
       <target file="system_stm32f4xx.o" lastModified="1514d0563f5">
          <source file="..\..\..\driver\config\system_stm32f4xx.c" lastModified="1514d04ae05"/>
       </target>
-      <target file="UART.o" lastModified="1516ad5ec3d">
-         <source file="..\..\..\app\UART.c" lastModified="1516ad5489e"/>
+      <target file="UART.o" lastModified="15173ab6994">
+         <source file="..\..\..\app\UART.c" lastModified="15171dffd9f"/>
       </target>
       <target file="BaudRateAlgorithm.o" lastModified="15147b867d2">
          <source file="..\..\..\app\BaudRateAlgorithm.c" lastModified="151479dde3d"/>
@@ -22,14 +22,14 @@
       <target file="stm32f4xx_hal_cortex.o" lastModified="15147b66124">
          <source file="..\..\..\driver\hardware\stm32f4xx_hal_cortex.c" lastModified="1514179ad63"/>
       </target>
-      <target file="main.o" lastModified="1516ad5ea0a">
-         <source file="..\..\..\app\main.c" lastModified="1516ad3fe16"/>
-      </target>
-      <target file="stm32f4xx_hal_gpio.o" lastModified="15147b663e0">
-         <source file="..\..\..\driver\hardware\stm32f4xx_hal_gpio.c" lastModified="1514179ad6e"/>
+      <target file="main.o" lastModified="15173ab68c3">
+         <source file="..\..\..\app\main.c" lastModified="15173a90222"/>
       </target>
       <target file="Rcc.o" lastModified="15164cae07f">
          <source file="..\..\..\app\Rcc.c" lastModified="15164caa8e1"/>
+      </target>
+      <target file="stm32f4xx_hal_gpio.o" lastModified="15147b663e0">
+         <source file="..\..\..\driver\hardware\stm32f4xx_hal_gpio.c" lastModified="1514179ad6e"/>
       </target>
       <target file="Gpio.o" lastModified="15164d6edd3">
          <source file="..\..\..\app\Gpio.c" lastModified="15164d6e57d"/>

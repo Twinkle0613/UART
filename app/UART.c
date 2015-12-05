@@ -3,6 +3,10 @@
 #include "BaudRateAlgorithm.h"
 #include "stdlib.h"
 
+#define noiseDetected getUART5Status(FLAG_NF)
+#define framingErr getUART5Status(FLAG_FE)
+#define parityErr getUART5Status(FLAG_PE)
+#define overRunErr getUART5Status(FLAG_ORE)
 
 /*
  *  ----Documentation----
@@ -46,6 +50,13 @@
     * Control register 2
     * Stop bit in bit 13:12 (STOP) eg. if STOP = 0, the size of stop bit is 1;
     * */
+ /*****Error***
+  * Overrun Error
+  * Framing Error
+  * Parity Error
+  *
+  * */
+
 
   /*****Configure Interrupt Event****
    * PE interrupt in bit 8 (PEIE)
@@ -75,58 +86,114 @@
    *
    *
    * */
+/*
+int noiseDetected(void){
+	return getUART5Status(NF);
+}
+int framingErr(void){
+	return getUART5Status(FE);
+}
+int parityErr(void){
+	return getUART5Status(PE);
+}
+int overRunErr(void){
+	return getUART5Status(ORE);
+}
+*/
 
 
+#define NOISE_DETECTED 1
+#define FRAMING_ERRPR 1
+#define PARITY_ERROR 1
+#define OVERRUN_ERROR 1
+#define NON_ERROR 0
+
+void checkUART5err(int* noise,int* framErr,int* parErr, int* OverErr){
+	 *noise = NON_ERROR;
+	 *framErr = NON_ERROR;
+	 *parErr = NON_ERROR;
+	 *OverErr = NON_ERROR;
+	if( noiseDetected ){
+     *noise = NOISE_DETECTED;
+	}
+	if( framingErr ){
+     *framErr = FRAMING_ERRPR;
+	}
+	if( parityErr ){
+	 *parErr = PARITY_ERROR;
+	}
+	if( overRunErr ){
+	 *OverErr = OVERRUN_ERROR;
+	}
+}
+
+ void handleUART5err(){
+  uint32_t temReg;
+ 	if( noiseDetected ){
+     temReg = UART5->SR;
+     temReg = UART5->DR;
+ 	}
+ 	if( framingErr ){
+ 	 temReg = UART5->SR;
+ 	 temReg = UART5->DR;
+ 	}
+ 	if( parityErr ){
+ 	 temReg = UART5->SR;
+ 	 temReg = UART5->DR;
+ 	}
+ 	if( overRunErr ){
+ 	 temReg = UART5->SR;
+ 	 temReg = UART5->DR;
+ 	}
+ }
+
+void clearInterruptFlag(){
+ 	UART5->SR = 0;
+ }
+
+
+void congifureUART_IE(UART* uartPtr, int txIE,int tcIE, int rxIE, int parityIE, int ErrIE ){
+	uartPtr->CR1 |= ( parityIE << 8);
+	uartPtr->CR1 |= ( txIE << 7);
+	uartPtr->CR1 |= ( tcIE << 6);
+	uartPtr->CR1 |= ( rxIE << 5);
+	uartPtr->CR3 |= ( ErrIE << 0);
+	uint32_t checkCR1 = uartPtr->CR1;
+	uint32_t checkCR3 = uartPtr->CR3;
+}
 
 ///UART configuration
 void configureUART(UART* uartPtr,int baudRate, uint32_t parity, uint32_t stopBit, uint32_t wordLength){
   uart5UnresetEnableClock();
-
   uint32_t checkCR1;
   uint32_t checkCR2;
+  uint32_t checkCR3;
   uint32_t checkBRR;
-  uartPtr->CR1 &= ~( 1 << 10);
   uartPtr->CR1 |= ( parity << 10);
-
-  uartPtr->CR1 &= ~( 1 << 12);
+  if(parity){
+   uartPtr->CR1 |= ( EVEN_PARITY << 9);
+  }
   uartPtr->CR1 |= ( wordLength << 12);
-
+  uartPtr->CR1 |= ( UART_ENABLE << 13 );
+  uartPtr->CR1 |= ( UART_RECEIVER_ENABLE << 2 );
+  uartPtr->CR1 |= ( UART_TRANSMITTER_ENABLE << 3 );
   uartPtr->CR2 &= ~( 3 << 12);
-  uartPtr->CR2 |= ( stopBit << 12);
-
-  uartPtr->CR1 &= ~( 1 << 13);
-  uartPtr->CR1 |= ( UART_ENABLE << 13);
-
-  uartPtr->CR1 &= ~( 1 << 2);
-  uartPtr->CR1 |= ( UART_RECEIVER_ENABLE << 2);
-
-  uartPtr->CR1 &= ~( 1 << 3);
-  uartPtr->CR1 |= ( UART_TRANSMITTER_ENABLE << 3);
-
-  uartPtr->BRR = baudRateSetting(baudRate,HAL_RCC_GetPCLK1Freq());
+  uartPtr->CR2 |= ( stopBit << 12 );
+  uartPtr->CR3 |= ( THREE_BIT_SAMPLE <<11 );
+  uartPtr->BRR = baudRateSetting(baudRate,HAL_RCC_GetPCLK2Freq());
   checkCR1 = uartPtr->CR1;
   checkCR2 = uartPtr->CR2;
+  checkCR3 = uartPtr->CR3;
   checkBRR = uartPtr->BRR;
-
 }
 
 //Unable Reset and Enable Clock for UART5
 void uart5UnresetEnableClock(void){
   rcc* rccPtr = RCC_BASE_ADDRESS;
-  rccPtr->APB1ENR &= ~( 1 << 20 );
   rccPtr->APB1ENR |=  1 << 20;
-
-  rccPtr->APB1RSTR &= ~( 1 << 20 );
   rccPtr->APB1RSTR |=  0 << 20;
 }
 
-int readySend(){
-  return getUART5Status(TXE);
-}
-
-int readyReceived(){
-  return getUART5Status(RXNE);
-}
 
 int getUART5Status( int posBit ){
   uint32_t checkSR = UART5->SR;
@@ -134,13 +201,13 @@ int getUART5Status( int posBit ){
 }
 
 void sendByle(uint8_t Data){
-  while( !readySend() );
+  while( !readyTransmit );
    UART5->DR = Data;
 }
 
 uint8_t receivedByle(void){
    uint32_t checkSR = UART5->SR;
-   while( !readyReceived() ); // if RXNE = 1, The input of data is received.
+   while( !readyReceived ); // if RXNE = 1, The input of data is received.
    uint32_t checkDR = UART5->DR;
    return UART5->DR;
 
