@@ -3,10 +3,8 @@
 #include "BaudRateAlgorithm.h"
 #include "stdlib.h"
 
-#define noiseDetected getUART5Status(FLAG_NF)
-#define framingErr getUART5Status(FLAG_FE)
-#define parityErr getUART5Status(FLAG_PE)
-#define overRunErr getUART5Status(FLAG_ORE)
+
+
 
 /*
  *  ----Documentation----
@@ -86,28 +84,18 @@
    *
    *
    * */
-/*
-int noiseDetected(void){
-	return getUART5Status(NF);
-}
-int framingErr(void){
-	return getUART5Status(FE);
-}
-int parityErr(void){
-	return getUART5Status(PE);
-}
-int overRunErr(void){
-	return getUART5Status(ORE);
-}
-*/
+#define noiseDetected    getUART5Status(FLAG_NF)
+#define framingErr       getUART5Status(FLAG_FE)
+#define parityErr        getUART5Status(FLAG_PE)
+#define overRunErr       getUART5Status(FLAG_ORE)
 
+#define NOISE_DETECTED   1
+#define FRAMING_ERRPR    1
+#define PARITY_ERROR     1
+#define OVERRUN_ERROR    1
+#define NON_ERROR        0
 
-#define NOISE_DETECTED 1
-#define FRAMING_ERRPR 1
-#define PARITY_ERROR 1
-#define OVERRUN_ERROR 1
-#define NON_ERROR 0
-
+//-------------------INTERRUPT EVENT--------------------------//
 void checkUART5err(int* noise,int* framErr,int* parErr, int* OverErr){
 	 *noise = NON_ERROR;
 	 *framErr = NON_ERROR;
@@ -127,23 +115,34 @@ void checkUART5err(int* noise,int* framErr,int* parErr, int* OverErr){
 	}
 }
 
+void handleUART5ErrInInterrupt(){
+   uint32_t temReg;
+	if(noiseDetected && enableEIE){
+	  temReg = UART5->SR;
+	  temReg = UART5->DR;
+	}
+
+	if(framingErr && enableEIE){
+	  temReg = UART5->SR;
+	  temReg = UART5->DR;
+	}
+
+	if(parityErr && enablePEIE){
+	  temReg = UART5->SR;
+	  temReg = UART5->DR;
+	}
+
+	if( (overRunErr && enableEIE) || (overRunErr && enableRXNEIE) ){
+	  temReg = UART5->SR;
+	  temReg = UART5->DR;
+	}
+}
+
  void handleUART5err(){
   uint32_t temReg;
- 	if( noiseDetected ){
+ 	if( noiseDetected || framingErr || parityErr || overRunErr){
      temReg = UART5->SR;
      temReg = UART5->DR;
- 	}
- 	if( framingErr ){
- 	 temReg = UART5->SR;
- 	 temReg = UART5->DR;
- 	}
- 	if( parityErr ){
- 	 temReg = UART5->SR;
- 	 temReg = UART5->DR;
- 	}
- 	if( overRunErr ){
- 	 temReg = UART5->SR;
- 	 temReg = UART5->DR;
  	}
  }
 
@@ -162,7 +161,7 @@ void congifureUART_IE(UART* uartPtr, int txIE,int tcIE, int rxIE, int parityIE, 
 	uint32_t checkCR3 = uartPtr->CR3;
 }
 
-///UART configuration
+//----------------------UART CONFIGURATION----------------------//
 void configureUART(UART* uartPtr,int baudRate, uint32_t parity, uint32_t stopBit, uint32_t wordLength){
   uart5UnresetEnableClock();
   uint32_t checkCR1;
@@ -194,25 +193,38 @@ void uart5UnresetEnableClock(void){
   rccPtr->APB1RSTR |=  0 << 20;
 }
 
+//-----------------TANSMITTION-------------//
+void sendByle(uint8_t Data){
+  while( !readyTransmit );
+   UART5->DR = Data;
+}
+
+//-----------------RECEIVED--------------///
+uint8_t receivedByle(void){
+   uint32_t checkSR = UART5->SR;
+   while( !readyReceived ); // if RXNE = 1, The input of data is received.
+   uint32_t checkDR = UART5->DR;
+   return UART5->DR;
+}
+
+//------------------TOOL---------------//
+int getBit( uint32_t* reg, int posBit ){
+  uint32_t store = *reg;
+  return (( store >> posBit) & 1 );
+}
 
 int getUART5Status( int posBit ){
   uint32_t checkSR = UART5->SR;
   return (( UART5->SR  >> posBit) & 1 );
 }
 
-void sendByle(uint8_t Data){
-  while( !readyTransmit );
-   UART5->DR = Data;
+void sendBreak(void){
+  UART5->CR1 |=  TRANSMIT_BREAK << 0;
 }
 
-uint8_t receivedByle(void){
-   uint32_t checkSR = UART5->SR;
-   while( !readyReceived ); // if RXNE = 1, The input of data is received.
-   uint32_t checkDR = UART5->DR;
-   return UART5->DR;
-
+void stopBreak(void){
+	UART5->CR1 |=  NO_TRANSMIT_BREAK << 0;
 }
-
 
 
 

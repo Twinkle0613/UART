@@ -7,7 +7,7 @@
 #include "stm32f4xx_hal_gpio.h"
 
 
-
+uint32_t getSystemClock();
 void gpioUnresetEnableClock(GPIO *port);
 
 typedef struct RCC_t rcc;
@@ -48,6 +48,8 @@ struct RCC_t{
  uint32_t PLLI2SCFGR;
 };
 
+
+
 #define RCC_BASE_ADDRESS 0x40023800
 #define RCC_reg	((rcc*)RCC_BASE_ADDRESS)
 
@@ -61,5 +63,7 @@ struct RCC_t{
 #define GPIOH_BIT 7
 #define GPIOI_BIT 8
 
+#define HSI_VALUE	  16000000
+#define HSE_VALUE	   8000000
 
 #endif //__Rcc_H__

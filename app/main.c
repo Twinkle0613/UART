@@ -13,27 +13,20 @@ void delay(uint32_t delayCount){
   }
 }
 
-/*
- 
-
-
-*/
-
 
 void UART5_IRQHandler(){
 	int noise,framErr,parErr,overRunErr;
-
-	if(readyTransmit){
-	  sendByle('F');
+	uint8_t butter;
+	checkUART5err( &noise,&framErr,&parErr,&overRunErr );
+	handleUART5ErrInInterrupt();
+	if( readyTransmit && enableTXEIE ){
+		//sendByle('H');
 	}
+	if( completeTransmit && enableTCIE ){
 
-	if(readyReceived){
-	   checkUART5err(&noise,&framErr,&parErr,&overRunErr);
-	  if(!overRunErr && !framErr && !parErr && !noise){
-	    byleButter = receivedByle();
-	  }else{
-	    handleUART5err();
-	  }
+	}
+	if( readyReceived && enableRXNEIE){
+	   butter = receivedByle();
 	}
 	clearInterruptFlag();
 }
@@ -45,42 +38,34 @@ int main(){
     configureAlterFuncPin(12,PORTC,8);  //TX PC12
 	configureOutPin(GPIO_MODE_OUTPUT,PIN_14,PORTG); // for LD14
 	configureOutPin(GPIO_MODE_OUTPUT,PIN_13,PORTG); // for LD14
-    configureUART(UART5,9600,UART_PARITY_DISABLE,UART_STOPBITS_1,UART_WORDLENGTH_8B);
-    congifureUART_IE(UART5,TX_EMPTY_ID,TX_COMPLETE_ID,RX_NOT_EMPTY_IE,PARITY_ID,ERROR_ID);
+    configureUART(UART5,9600,UART_PARITY_DISABLE,UART_STOPBITS_1,UART_WORDLENGTH_9B);
+    congifureUART_IE(UART5,TX_EMPTY_ID,TX_COMPLETE_ID,RX_NOT_EMPTY_ID,PARITY_IE,ERROR_ID);
     uint8_t butter;
     uint32_t checkSR;
     int noise,framErr,parErr,overRunErr;
-    int i = 0;
-    int rxne = getUART5Status(FLAG_RXNE);
+    int i= 0;
+ //   uint32_t sysClk  = getSystemClock();
  while(1){
-	 writeSet(PORTG,14);
-	 if(!i){
-	 sendByle('F');
-	 sendByle('H');
-	 sendByle('3');
-	 i = ~i;
-	 }else {
-	 sendByle('F');
-	 i = ~i;
-	 }
-
-    // delay(10000000);
-/*
-   if( readyReceived ){ // receiver received data.
-	 checkSR = UART5->SR ;
-	 checkUART5err(&noise,&framErr,&parErr,&overRunErr);
-	 if(!overRunErr && !framErr && !parErr && !noise){
-	  butter = receivedByle();
-      writeSet(PORTG,13);
-	 }else{
-	  handleUART5err();
-	 }
-   }
-*/
-   rxne = getUART5Status(FLAG_RXNE);
-   writeReset(PORTG,13);
-   checkSR = UART5->SR ;
+	//sendByle('F');
+	//sendByle('H');
+	sendByle('H');
+	checkUART5err(&noise,&framErr,&parErr,&overRunErr);
+	//handleUART5err();
+	if( readyReceived ){
+	 butter  = receivedByle();
+	//	butter  = receivedByle();
+	}
  }
 
-
 }
+
+// delay(10000000);
+/*
+if(!i){
+sendBreak();
+i = ~i;
+}else{
+stopBreak();
+i = ~i;
+}
+*/
