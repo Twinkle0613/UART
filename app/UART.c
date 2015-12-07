@@ -168,9 +168,10 @@ void configureUART(UART* uartPtr,int baudRate, uint32_t parity, uint32_t stopBit
   uint32_t checkCR2;
   uint32_t checkCR3;
   uint32_t checkBRR;
+  uartPtr->CR1 |= ( OVER8_IS_1 << 15);
   uartPtr->CR1 |= ( parity << 10);
   if(parity){
-   uartPtr->CR1 |= ( EVEN_PARITY << 9);
+   uartPtr->CR1 |= ( ODD_PARITY << 9);
   }
   uartPtr->CR1 |= ( wordLength << 12);
   uartPtr->CR1 |= ( UART_ENABLE << 13 );
@@ -179,7 +180,11 @@ void configureUART(UART* uartPtr,int baudRate, uint32_t parity, uint32_t stopBit
   uartPtr->CR2 &= ~( 3 << 12);
   uartPtr->CR2 |= ( stopBit << 12 );
   uartPtr->CR3 |= ( THREE_BIT_SAMPLE <<11 );
-  uartPtr->BRR = baudRateSetting(baudRate,HAL_RCC_GetPCLK2Freq());
+  uartPtr->BRR = baudRateSetting(baudRate,HAL_RCC_GetPCLK1Freq());
+//  uartPtr->BRR = baudRateAlgorithm(baudRate,HAL_RCC_GetPCLK1Freq(),OVER8_IS_1);
+
+
+ // uartPtr->BRR = 0x00002497;
   checkCR1 = uartPtr->CR1;
   checkCR2 = uartPtr->CR2;
   checkCR3 = uartPtr->CR3;
@@ -227,7 +232,15 @@ void stopBreak(void){
 }
 
 
-
+void putData(uint8_t* Data){
+   uint8_t butter;
+   uint32_t checkSR = UART5->SR;
+   while(*Data != NULL){
+      butter = *Data++;
+      sendByle(butter);
+   }
+   UART5->SR = checkSR;
+}
 
 
 

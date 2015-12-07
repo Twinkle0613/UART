@@ -1,18 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <history>
-   <processor signature="4.9.3 -mcpu=cortex-m4 -mthumb -g2 -Map=Test.map -O0 --gc-sections -LC:/Users/twinkle/Desktop/UART -TC:/Users/twinkle/Desktop/UART/stm32f429zi_flash.ld -g">
-      <target file="Test.elf" lastModified="15175111f60">
-         <source file="..\obj\Rcc.o" lastModified="15175111c18"/>
-         <source file="..\obj\UART.o" lastModified="151750beb26"/>
-         <source file="..\obj\stm32f4xx_hal_rcc.o" lastModified="15173d030d8"/>
-         <source file="..\obj\Gpio.o" lastModified="151750be9d9"/>
-         <source file="..\obj\BaudRateAlgorithm.o" lastModified="15173d02ee1"/>
-         <source file="..\obj\startup_stm32f429xx.o" lastModified="15173d02e89"/>
-         <source file="..\obj\stm32f4xx_hal_gpio.o" lastModified="15173d033d6"/>
-         <source file="..\obj\main.o" lastModified="15175111cd9"/>
-         <source file="..\obj\system_stm32f4xx.o" lastModified="15174fe4dc1"/>
-         <source file="..\obj\stm32f4xx_hal.o" lastModified="15173d02fe6"/>
-         <source file="..\obj\stm32f4xx_hal_cortex.o" lastModified="15173d031d3"/>
+   <processor signature="arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -g2 -Map=Test.map -O0 --gc-sections -LC:/Users/D203C-01/Desktop/UART -TC:/Users/D203C-01/Desktop/UART/stm32f429zi_flash.ld -g">
+      <target file="Test.elf" lastModified="1517bb1ab06">
+         <source file="..\obj\Rcc.o" lastModified="1517ba5acf1"/>
+         <source file="..\obj\UART.o" lastModified="1517baa9ef0"/>
+         <source file="..\obj\stm32f4xx_hal_rcc.o" lastModified="1517ba5b135"/>
+         <source file="..\obj\Gpio.o" lastModified="1517ba5b3d4"/>
+         <source file="..\obj\BaudRateAlgorithm.o" lastModified="1517ba5aeb5"/>
+         <source file="..\obj\startup_stm32f429xx.o" lastModified="1517ba5ae48"/>
+         <source file="..\obj\stm32f4xx_hal_gpio.o" lastModified="1517ba5b4ae"/>
+         <source file="..\obj\main.o" lastModified="1517bb1a887"/>
+         <source file="..\obj\system_stm32f4xx.o" lastModified="1517ba5b29c"/>
+         <source file="..\obj\stm32f4xx_hal.o" lastModified="1517ba5b02c"/>
+         <source file="..\obj\stm32f4xx_hal_cortex.o" lastModified="1517ba5b20f"/>
       </target>
    </processor>
 </history>

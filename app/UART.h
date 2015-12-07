@@ -107,5 +107,7 @@ void clearInterruptFlag();
 #define TRANSMIT_BREAK    1
 #define NO_TRANSMIT_BREAK 0
 
+#define OVER8_IS_0 0
+#define OVER8_IS_1 1
 
 #endif //__UART_H__
