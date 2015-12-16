@@ -14,7 +14,10 @@ struct UART_t{
  uint32_t GTPR;
 };
 
-
+typedef struct rxStr_t{
+  uint8_t* str;
+  int index;
+}rxStr;
 
 void congifureUART_IE(UART* uartPtr, int txIE,int tcIE, int rxIE, int parityIE, int ErrIE );
 void configureUART(UART* uartPtr,int baudRate, uint32_t parity, uint32_t stopBit, uint32_t wordLength);
@@ -26,6 +29,8 @@ int getBit( uint32_t* reg, int posBit );
 int getUART5Status( int posBit );
 void handleUART5ErrInInterrupt();
 void clearInterruptFlag();
+
+void uartEnableDMA(UART* uart);
 
 #define FLAG_PEIE   8
 #define FLAG_TXEIE  7
@@ -109,5 +114,8 @@ void clearInterruptFlag();
 
 #define OVER8_IS_0 0
 #define OVER8_IS_1 1
+
+#define DMAT_BIT 7
+#define DMAR_BIT 6
 
 #endif //__UART_H__

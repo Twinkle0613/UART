@@ -171,7 +171,7 @@ void configureUART(UART* uartPtr,int baudRate, uint32_t parity, uint32_t stopBit
   uartPtr->CR1 |= ( OVER8_IS_1 << 15);
   uartPtr->CR1 |= ( parity << 10);
   if(parity){
-   uartPtr->CR1 |= ( ODD_PARITY << 9);
+   uartPtr->CR1 |= ( EVEN_PARITY << 9);
   }
   uartPtr->CR1 |= ( wordLength << 12);
   uartPtr->CR1 |= ( UART_ENABLE << 13 );
@@ -231,6 +231,19 @@ void stopBreak(void){
 	UART5->CR1 |=  NO_TRANSMIT_BREAK << 0;
 }
 
+void sendStringByInterrupt(uint8_t* Data){
+	uint8_t butter;
+	uint32_t checkSR = UART5->SR;
+	while(*Data != NULL){
+	   butter = *Data++;
+	   sendByle(butter);
+	}
+	 UART5->SR = checkSR;
+}
+
+void getStringByInterrupt(uint8_t butter[], int* size){
+
+}
 
 void putData(uint8_t* Data){
    uint8_t butter;
@@ -242,6 +255,12 @@ void putData(uint8_t* Data){
    UART5->SR = checkSR;
 }
 
+void uartEnableDMA(UART* uart){
+ uint32_t checkCR3;
+ uart->CR3 |=  1 << DMAT_BIT ;
+ uart->CR3 |=  1 << DMAR_BIT ;
+ checkCR3 = uart->CR3;
+}
 
 
 

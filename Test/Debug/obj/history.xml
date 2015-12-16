@@ -1,38 +1,41 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <history>
-   <processor signature="arm-none-eabi-gcc 4.8.1 mingw32 -mcpu=cortex-m4 -mthumb -g2 -Wall -O0 -c -DSTM32F429ZI -DSTM32F429xx -DSTM32F429_439xx -I..\..\..\..\..\..\..\Desktop\UART\driver -I..\..\..\..\..\..\..\Desktop\UART -I..\..\..\..\..\..\..\CoIDE\workspace\STM32Cube_FW_F4_V1.5.0\Drivers\STM32F4xx_HAL_Driver -I..\..\..\..\..\..\..\Desktop -I..\..\..\..\..\..\..\CoIDE\workspace\STM32Cube_FW_F4_V1.5.0\Drivers -I..\..\..\..\..\..\..\Desktop\UART\app -I..\..\..\..\..\..\..\Desktop\UART\driver\hardware -I..\..\..\..\..\..\..\CoIDE\workspace\STM32Cube_FW_F4_V1.5.0\Drivers\STM32F4xx_HAL_Driver\Inc -I..\..\..\..\..\..\..\Desktop\UART\driver\config -I..\..\..\..\..\..\..\Desktop\UART\driver\core">
-      <target file="stm32f4xx_hal_rcc.o" lastModified="1517ba5b135">
-         <source file="..\..\..\driver\hardware\stm32f4xx_hal_rcc.c" lastModified="1517aa4ecd2"/>
+   <processor signature="arm-none-eabi-gcc 4.8.1 mingw32 -mcpu=cortex-m4 -mthumb -g2 -Wall -O0 -c -DSTM32F429ZI -DSTM32F429xx -DSTM32F429_439xx -ID:\stm32cubef4\STM32Cube_FW_F4_V1.9.0\Drivers -I..\..\..\..\..\..\..\Desktop\UART\driver\core -I..\..\..\..\..\..\..\Desktop -ID:\stm32cubef4\STM32Cube_FW_F4_V1.9.0\Drivers\STM32F4xx_HAL_Driver\Inc -I..\..\..\..\..\..\..\Desktop\UART -ID:\stm32cubef4\STM32Cube_FW_F4_V1.9.0\Drivers\STM32F4xx_HAL_Driver -I..\..\..\..\..\..\..\Desktop\UART\driver\config -I..\..\..\..\..\..\..\Desktop\UART\driver -I..\..\..\..\..\..\..\Desktop\UART\app -I..\..\..\..\..\..\..\Desktop\UART\driver\hardware">
+      <target file="stm32f4xx_hal_rcc.o" lastModified="1518905c417">
+         <source file="..\..\..\driver\hardware\stm32f4xx_hal_rcc.c" lastModified="15185c6d884"/>
       </target>
-      <target file="stm32f4xx_hal.o" lastModified="1517ba5b02c">
-         <source file="..\..\..\driver\hardware\stm32f4xx_hal.c" lastModified="1517aa4ecc3"/>
+      <target file="DMA.o" lastModified="151981ad1a8">
+         <source file="..\..\..\app\DMA.c" lastModified="1519805e123"/>
       </target>
-      <target file="system_stm32f4xx.o" lastModified="1517ba5b29c">
-         <source file="..\..\..\driver\config\system_stm32f4xx.c" lastModified="1517aa4ecb3"/>
+      <target file="stm32f4xx_hal.o" lastModified="1518905c339">
+         <source file="..\..\..\driver\hardware\stm32f4xx_hal.c" lastModified="15185c6d7e4"/>
       </target>
-      <target file="UART.o" lastModified="1517baa9ef0">
-         <source file="..\..\..\app\UART.c" lastModified="1517baa87d5"/>
+      <target file="system_stm32f4xx.o" lastModified="1518905c554">
+         <source file="..\..\..\driver\config\system_stm32f4xx.c" lastModified="15185c6d74e"/>
       </target>
-      <target file="BaudRateAlgorithm.o" lastModified="1517ba5aeb5">
-         <source file="..\..\..\app\BaudRateAlgorithm.c" lastModified="1517b668962"/>
+      <target file="UART.o" lastModified="1518daa3730">
+         <source file="..\..\..\app\UART.c" lastModified="1518da94169"/>
       </target>
-      <target file="startup_stm32f429xx.o" lastModified="1517ba5ae48">
-         <source file="..\..\..\driver\config\startup_stm32f429xx.s" lastModified="1517aa4eca4"/>
+      <target file="BaudRateAlgorithm.o" lastModified="1518905c284">
+         <source file="..\..\..\app\BaudRateAlgorithm.c" lastModified="15185c6d464"/>
       </target>
-      <target file="stm32f4xx_hal_cortex.o" lastModified="1517ba5b20f">
-         <source file="..\..\..\driver\hardware\stm32f4xx_hal_cortex.c" lastModified="1517aa4ecc3"/>
+      <target file="startup_stm32f429xx.o" lastModified="1518905c225">
+         <source file="..\..\..\driver\config\startup_stm32f429xx.s" lastModified="15185c6d6bd"/>
       </target>
-      <target file="main.o" lastModified="1517bb1a887">
-         <source file="..\..\..\app\main.c" lastModified="1517bb196d8"/>
+      <target file="stm32f4xx_hal_cortex.o" lastModified="1518905c4e1">
+         <source file="..\..\..\driver\hardware\stm32f4xx_hal_cortex.c" lastModified="15185c6d81f"/>
       </target>
-      <target file="Rcc.o" lastModified="1517ba5acf1">
-         <source file="..\..\..\app\Rcc.c" lastModified="1517aa4ec56"/>
+      <target file="main.o" lastModified="15198482534">
+         <source file="..\..\..\app\main.c" lastModified="151984802df"/>
       </target>
-      <target file="stm32f4xx_hal_gpio.o" lastModified="1517ba5b4ae">
-         <source file="..\..\..\driver\hardware\stm32f4xx_hal_gpio.c" lastModified="1517aa4ecc3"/>
+      <target file="stm32f4xx_hal_gpio.o" lastModified="1518905c78b">
+         <source file="..\..\..\driver\hardware\stm32f4xx_hal_gpio.c" lastModified="15185c6d843"/>
       </target>
-      <target file="Gpio.o" lastModified="1517ba5b3d4">
-         <source file="..\..\..\app\Gpio.c" lastModified="1517aa4ec56"/>
+      <target file="Rcc.o" lastModified="1518905c136">
+         <source file="..\..\..\app\Rcc.c" lastModified="15185c6d4aa"/>
+      </target>
+      <target file="Gpio.o" lastModified="1518905c6ca">
+         <source file="..\..\..\app\Gpio.c" lastModified="15185c6d492"/>
       </target>
    </processor>
 </history>
