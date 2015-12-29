@@ -20,7 +20,13 @@ typedef struct rxStr_t{
 }rxStr;
 
 void congifureUART_IE(UART* uartPtr, int txIE,int tcIE, int rxIE, int parityIE, int ErrIE );
-void configureUART(UART* uartPtr,int baudRate, uint32_t parity, uint32_t stopBit, uint32_t wordLength);
+
+void configureUART(UART* uartPtr,
+				   int baudRate,
+				   uint32_t parity,
+				   uint32_t stopBit,
+				   uint32_t wordLength);
+
 void uart5UnresetEnableClock(void);
 void sendByle(uint8_t Data);
 uint8_t receivedByle();

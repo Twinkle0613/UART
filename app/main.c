@@ -66,10 +66,12 @@ int main(){
 
 	configureAlterFuncPin(2,PORTD,8);   //RX PD2
     configureAlterFuncPin(12,PORTC,8);  //TX PC12
+
     configureOutPin(GPIO_MODE_OUTPUT,PIN_14,PORTG); // for LD14
     configureOutPin(GPIO_MODE_OUTPUT,PIN_13,PORTG); // for LD14
 
     configureUART(UART5,9600,UART_PARITY_DISABLE,UART_STOPBITS_1,UART_WORDLENGTH_8B);
+
     uartEnableDMA(UART5);
     congifureUART_IE(UART5,TX_EMPTY_ID,TX_COMPLETE_ID,RX_NOT_EMPTY_ID,PARITY_ID,ERROR_ID);
     uint8_t butter;

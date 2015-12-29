@@ -67,7 +67,9 @@ struct GPIO_t{
 #define PORTG	((GPIO *)GPIOG_BASE_ADDRESS)
 configureIntPin(int direction,int pinNum, GPIO* port);
 configureOutPin(int direction, int pinNum, GPIO *port);
+
 configureAlterFuncPin(int pinNum, GPIO *port, int valueAFR);
+
 void writeOne(int pinNum, GPIO_TypeDef *port);
 void writeZero(int pinNum, GPIO_TypeDef *port);
 

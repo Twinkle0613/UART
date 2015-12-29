@@ -152,6 +152,7 @@ void clearInterruptFlag(){
 
 
 void congifureUART_IE(UART* uartPtr, int txIE,int tcIE, int rxIE, int parityIE, int ErrIE ){
+
 	uartPtr->CR1 |= ( parityIE << 8);
 	uartPtr->CR1 |= ( txIE << 7);
 	uartPtr->CR1 |= ( tcIE << 6);
@@ -181,7 +182,8 @@ void configureUART(UART* uartPtr,int baudRate, uint32_t parity, uint32_t stopBit
   uartPtr->CR2 |= ( stopBit << 12 );
   uartPtr->CR3 |= ( THREE_BIT_SAMPLE <<11 );
   uartPtr->BRR = baudRateSetting(baudRate,HAL_RCC_GetPCLK1Freq());
-//  uartPtr->BRR = baudRateAlgorithm(baudRate,HAL_RCC_GetPCLK1Freq(),OVER8_IS_1);
+
+ //uartPtr->BRR = baudRateAlgorithm(9600,HAL_RCC_GetPCLK1Freq(),OVER8_IS_1);
 
 
  // uartPtr->BRR = 0x00002497;
