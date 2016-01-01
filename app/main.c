@@ -70,7 +70,7 @@ int main(){
     configureOutPin(GPIO_MODE_OUTPUT,PIN_14,PORTG); // for LD14
     configureOutPin(GPIO_MODE_OUTPUT,PIN_13,PORTG); // for LD14
 
-    configureUART(UART5,9600,UART_PARITY_DISABLE,UART_STOPBITS_1,UART_WORDLENGTH_8B);
+    configureUART(UART5,115200,UART_PARITY_DISABLE,UART_STOPBITS_1,UART_WORDLENGTH_8B);
 
     uartEnableDMA(UART5);
     congifureUART_IE(UART5,TX_EMPTY_ID,TX_COMPLETE_ID,RX_NOT_EMPTY_ID,PARITY_ID,ERROR_ID);
@@ -82,19 +82,20 @@ int main(){
    //enableDmaTX(DMA1);
    //enableDmaRX(DMA1);
  while(1){
-	 checkDMA1LISR = DMA1->LISR;
-	 checkDMA1HISR = DMA1->HISR;
+	 sendByle('H');
+	 sendBreak();
+ }
+
+}
+
+/*
 	 writeReset(PORTG,PIN_14);
 	 writeSet(PORTG,PIN_13);
 	 delay(10000000);
 	 writeSet(PORTG,PIN_14);
 	 writeReset(PORTG,PIN_13);
 	 delay(10000000);
- }
-
-}
-
-
+*/
 
 // checkUART5err( &noise,&framErr,&parErr,&overRunErr );
 
