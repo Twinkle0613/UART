@@ -106,14 +106,6 @@
       <source file="D:\stm32cubef4\STM32Cube_FW_F4_V1.9.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_ll_sdmmc.h" lastModified="15141839e95">
          <include file="D:\stm32cubef4\STM32Cube_FW_F4_V1.9.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h"/>
       </source>
-      <source file="..\..\..\app\main.c" lastModified="151fa178655">
-         <include file="..\..\..\driver\config\stm32f4xx.h"/>
-         <include file="..\..\..\driver\hardware\stm32f4xx_hal_gpio.h"/>
-         <include file="..\..\..\app\Gpio.h"/>
-         <include file="..\..\..\app\Rcc.h"/>
-         <include file="..\..\..\app\UART.h"/>
-         <include file="..\..\..\app\DMA.h"/>
-      </source>
       <source file="D:\stm32cubef4\STM32Cube_FW_F4_V1.9.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_dma2d.h" lastModified="15141839977">
          <include file="D:\stm32cubef4\STM32Cube_FW_F4_V1.9.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h"/>
       </source>

@@ -36,17 +36,14 @@ void DMA1_Stream7_IRQHandler(){
 	checkDMA1LISR = DMA1->LISR;
 	checkDMA1HISR = DMA1->HISR;
 }
+//checkUART5err( &noise,&framErr,&parErr,&overRunErr );
+//handleUART5ErrInInterrupt();
+//int noise,framErr,parErr,overRunErr;
+//uint8_t butter;
 
 void UART5_IRQHandler(){
-	int noise,framErr,parErr,overRunErr;
-	uint8_t butter;
-	checkUART5err( &noise,&framErr,&parErr,&overRunErr );
-	handleUART5ErrInInterrupt();
 	if( readyTransmit && enableTXEIE ){
 	  sendStringByInterrupt("NwaNeng,Here!");
-	}
-	if( completeTransmit && enableTCIE ){
-
 	}
 	if( readyReceived && enableRXNEIE){
 	  getStringByInterrupt(rxBuffer,13);
