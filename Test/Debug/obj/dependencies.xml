@@ -15,10 +15,6 @@
          <include file="D:\stm32cubef4\STM32Cube_FW_F4_V1.9.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_ll_fsmc.h"/>
          <include file="D:\stm32cubef4\STM32Cube_FW_F4_V1.9.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_ll_fmc.h"/>
       </source>
-      <source file="..\..\..\app\DMA.c" lastModified="1519805e123">
-         <include file="..\..\..\app\DMA.h"/>
-         <include file="..\..\..\app\Rcc.h"/>
-      </source>
       <source file="..\..\..\app\BaudRateAlgorithm.h" lastModified="15185c6d862">
       </source>
       <source file="..\..\..\app\BaudRateAlgorithm.c" lastModified="15185c6d84c">
@@ -105,6 +101,14 @@
       </source>
       <source file="D:\stm32cubef4\STM32Cube_FW_F4_V1.9.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_ll_sdmmc.h" lastModified="15141839e95">
          <include file="D:\stm32cubef4\STM32Cube_FW_F4_V1.9.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h"/>
+      </source>
+      <source file="..\..\..\app\main.c" lastModified="15205d7c209">
+         <include file="..\..\..\driver\config\stm32f4xx.h"/>
+         <include file="..\..\..\driver\hardware\stm32f4xx_hal_gpio.h"/>
+         <include file="..\..\..\app\Gpio.h"/>
+         <include file="..\..\..\app\Rcc.h"/>
+         <include file="..\..\..\app\UART.h"/>
+         <include file="..\..\..\app\DMA.h"/>
       </source>
       <source file="D:\stm32cubef4\STM32Cube_FW_F4_V1.9.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_dma2d.h" lastModified="15141839977">
          <include file="D:\stm32cubef4\STM32Cube_FW_F4_V1.9.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h"/>
@@ -284,7 +288,7 @@
          <include file="D:\stm32cubef4\STM32Cube_FW_F4_V1.9.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h"/>
          <include file="D:\stm32cubef4\STM32Cube_FW_F4_V1.9.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rtc_ex.h"/>
       </source>
-      <source file="..\..\..\app\UART.c" lastModified="151dfb26a52">
+      <source file="..\..\..\app\UART.c" lastModified="1520613cc05">
          <include file="..\..\..\app\UART.h"/>
          <include file="..\..\..\app\Rcc.h"/>
          <include file="..\..\..\app\BaudRateAlgorithm.h"/>
@@ -331,10 +335,6 @@
       </source>
    </includePath>
    <includePath signature="/ID:\stm32cubef4\STM32Cube_FW_F4_V1.9.0\Drivers /I..\..\..\..\..\..\..\Desktop\UART\driver\core /I..\..\..\..\..\..\..\Desktop /ID:\stm32cubef4\STM32Cube_FW_F4_V1.9.0\Drivers\STM32F4xx_HAL_Driver\Inc /I..\..\..\..\..\..\..\Desktop\UART /ID:\stm32cubef4\STM32Cube_FW_F4_V1.9.0\Drivers\STM32F4xx_HAL_Driver /I..\..\..\..\..\..\..\Desktop\UART\driver\config /I..\..\..\..\..\..\..\Desktop\UART\driver /I..\..\..\..\..\..\..\Desktop\UART\app /I..\..\..\..\..\..\..\Desktop\UART\driver\hardware">
-      <source file="..\..\..\app\DMA.c" lastModified="1519805e123">
-         <include file="..\..\..\app\DMA.h"/>
-         <include file="..\..\..\app\Rcc.h"/>
-      </source>
       <source file="..\..\..\driver\hardware\stm32f4xx_hal_rcc.c" lastModified="15185c6d884">
          <include file="..\..\..\driver\hardware\stm32f4xx_hal.h"/>
       </source>

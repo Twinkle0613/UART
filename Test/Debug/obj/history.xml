@@ -4,8 +4,8 @@
       <target file="stm32f4xx_hal_rcc.o" lastModified="151db6d0473">
          <source file="..\..\..\driver\hardware\stm32f4xx_hal_rcc.c" lastModified="15185c6d884"/>
       </target>
-      <target file="DMA.o" lastModified="151db6d07ff">
-         <source file="..\..\..\app\DMA.c" lastModified="1519805e123"/>
+      <target file="DMA.o" lastModified="1520614768a">
+         <source file="..\..\..\app\DMA.c" lastModified="15206145aad"/>
       </target>
       <target file="stm32f4xx_hal.o" lastModified="151db6d02f9">
          <source file="..\..\..\driver\hardware\stm32f4xx_hal.c" lastModified="15185c6d7e4"/>
@@ -13,8 +13,8 @@
       <target file="system_stm32f4xx.o" lastModified="151db6d070c">
          <source file="..\..\..\driver\config\system_stm32f4xx.c" lastModified="15185c6d74e"/>
       </target>
-      <target file="UART.o" lastModified="151f9f51caf">
-         <source file="..\..\..\app\UART.c" lastModified="151dfb2666a"/>
+      <target file="UART.o" lastModified="15206141577">
+         <source file="..\..\..\app\UART.c" lastModified="1520613c81d"/>
       </target>
       <target file="BaudRateAlgorithm.o" lastModified="151db6d0179">
          <source file="..\..\..\app\BaudRateAlgorithm.c" lastModified="15185c6d464"/>
@@ -25,8 +25,8 @@
       <target file="stm32f4xx_hal_cortex.o" lastModified="151db6d0638">
          <source file="..\..\..\driver\hardware\stm32f4xx_hal_cortex.c" lastModified="15185c6d81f"/>
       </target>
-      <target file="main.o" lastModified="1520164ac36">
-         <source file="..\..\..\app\main.c" lastModified="15201647f83"/>
+      <target file="main.o" lastModified="15205d7f503">
+         <source file="..\..\..\app\main.c" lastModified="15205d7c209"/>
       </target>
       <target file="stm32f4xx_hal_gpio.o" lastModified="151db6d0e5a">
          <source file="..\..\..\driver\hardware\stm32f4xx_hal_gpio.c" lastModified="15185c6d843"/>

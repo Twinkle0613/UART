@@ -152,23 +152,17 @@ void clearInterruptFlag(){
 
 
 void congifureUART_IE(UART* uartPtr, int txIE,int tcIE, int rxIE, int parityIE, int ErrIE ){
-
 	uartPtr->CR1 |= ( parityIE << 8);
 	uartPtr->CR1 |= ( txIE << 7);
 	uartPtr->CR1 |= ( tcIE << 6);
 	uartPtr->CR1 |= ( rxIE << 5);
 	uartPtr->CR3 |= ( ErrIE << 0);
-	uint32_t checkCR1 = uartPtr->CR1;
-	uint32_t checkCR3 = uartPtr->CR3;
 }
 
 //----------------------UART CONFIGURATION----------------------//
+
 void configureUART(UART* uartPtr,int baudRate, uint32_t parity, uint32_t stopBit, uint32_t wordLength){
   uart5UnresetEnableClock();
-  uint32_t checkCR1;
-  uint32_t checkCR2;
-  uint32_t checkCR3;
-  uint32_t checkBRR;
   uartPtr->CR1 |= ( OVER8_IS_1 << 15);
   uartPtr->CR1 |= ( parity << 10);
   if(parity){
@@ -182,18 +176,11 @@ void configureUART(UART* uartPtr,int baudRate, uint32_t parity, uint32_t stopBit
   uartPtr->CR2 |= ( stopBit << 12 );
   uartPtr->CR3 |= ( THREE_BIT_SAMPLE <<11 );
   uartPtr->BRR = baudRateSetting(baudRate,HAL_RCC_GetPCLK1Freq());
-
- //uartPtr->BRR = baudRateAlgorithm(9600,HAL_RCC_GetPCLK1Freq(),OVER8_IS_1);
-
-
- // uartPtr->BRR = 0x00002497;
-  checkCR1 = uartPtr->CR1;
-  checkCR2 = uartPtr->CR2;
-  checkCR3 = uartPtr->CR3;
-  checkBRR = uartPtr->BRR;
 }
 
+//uartPtr->BRR = baudRateAlgorithm(9600,HAL_RCC_GetPCLK1Freq(),OVER8_IS_1);
 //Unable Reset and Enable Clock for UART5
+
 void uart5UnresetEnableClock(void){
   rcc* rccPtr = RCC_BASE_ADDRESS;
   rccPtr->APB1ENR |=  1 << 20;
@@ -208,9 +195,7 @@ void sendByle(uint8_t Data){
 
 //-----------------RECEIVED--------------///
 uint8_t receivedByle(void){
-   uint32_t checkSR = UART5->SR;
-   while( !readyReceived ); // if RXNE = 1, The input of data is received.
-   uint32_t checkDR = UART5->DR;
+   while( !readyReceived );
    return UART5->DR;
 }
 
@@ -230,17 +215,16 @@ void sendBreak(void){
 }
 
 void stopBreak(void){
-	UART5->CR1 |=  NO_TRANSMIT_BREAK << 0;
+ UART5->CR1 |=  NO_TRANSMIT_BREAK << 0;
 }
 
 void sendStringByInterrupt(uint8_t* Data){
 	uint8_t butter;
-	uint32_t checkSR = UART5->SR;
 	while(*Data != NULL){
 	   butter = *Data++;
 	   sendByle(butter);
 	}
-	 UART5->SR = checkSR;
+
 }
 
 void getStringByInterrupt(uint8_t butter[], int* size){
@@ -249,19 +233,16 @@ void getStringByInterrupt(uint8_t butter[], int* size){
 
 void putData(uint8_t* Data){
    uint8_t butter;
-   uint32_t checkSR = UART5->SR;
    while(*Data != NULL){
       butter = *Data++;
       sendByle(butter);
    }
-   UART5->SR = checkSR;
 }
 
+
 void uartEnableDMA(UART* uart){
- uint32_t checkCR3;
  uart->CR3 |=  1 << DMAT_BIT ;
  uart->CR3 |=  1 << DMAR_BIT ;
- checkCR3 = uart->CR3;
 }
 
 

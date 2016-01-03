@@ -16,25 +16,19 @@ void delay(uint32_t delayCount){
   }
 }
 void DMA1_Stream0_IRQHandler(){
-	int noise,framErr,parErr,overRunErr;
-	checkUART5err( &noise,&framErr,&parErr,&overRunErr );
-	uint32_t checkRXbuffer;
-	uint32_t checkNDTR = DMA1->S0.NDTR;
-	if(compReceiveRX)
-		checkRXbuffer = rxBuffer[0];
 	clearDMAFlag(DMA1,STREAM0,FLAG_TCIF0);
 }
+
+//int noise,framErr,parErr,overRunErr;
+//checkUART5err( &noise,&framErr,&parErr,&overRunErr );
+//uint32_t checkRXbuffer;
+//uint32_t checkNDTR = DMA1->S0.NDTR;
+//if(compReceiveRX)
+//	checkRXbuffer = rxBuffer[0];
+//clearDMAFlag(DMA1,STREAM0,FLAG_TCIF0);
+
 void DMA1_Stream7_IRQHandler(){
-	uint32_t checkUARTDR;
-	uint32_t checkDMA1LISR = DMA1->LISR;
-	uint32_t checkDMA1HISR = DMA1->HISR;
-	uint32_t checkNDTR = DMA1->S7.NDTR;
-	 if( compTransmitTX ){
-	  // checkUARTDR = UART5->DR;
-	 }
 	clearDMAFlag(DMA1,STREAM7,FLAG_TCIF7);
-	checkDMA1LISR = DMA1->LISR;
-	checkDMA1HISR = DMA1->HISR;
 }
 //checkUART5err( &noise,&framErr,&parErr,&overRunErr );
 //handleUART5ErrInInterrupt();
@@ -56,7 +50,6 @@ int main(){
 	HAL_NVIC_EnableIRQ(UART5_IRQn);
 	HAL_NVIC_EnableIRQ(DMA1_Stream0_IRQn);
 	HAL_NVIC_EnableIRQ(DMA1_Stream7_IRQn);
-	//												 PSIZE MSIZE
 
 	configureDMA(DMA1,0,CHANNEL4,PERIPHERAL_TO_MEMORY,BYTE,BYTE,&(UART5->DR),rxBuffer,4); //RX
 	configureDMA(DMA1,7,CHANNEL4,MEMORY_TO_PERIPHERAL,BYTE,BYTE,txBuffer,&(UART5->DR),4); //TX
@@ -76,13 +69,16 @@ int main(){
    uint32_t checkDMA1HISR,checkRXbuffer;
    uint32_t checkDMA1LISR;
    uint32_t checkUARTDR;
-   //enableDmaTX(DMA1);
-   //enableDmaRX(DMA1);
+   enableDmaTX(DMA1);
+   enableDmaRX(DMA1);
  while(1){
-	 sendByle('H');
-	 sendBreak();
+	 writeReset(PORTG,PIN_14);
+	 writeSet(PORTG,PIN_13);
+	 delay(10000000);
+	 writeSet(PORTG,PIN_14);
+	 writeReset(PORTG,PIN_13);
+	 delay(10000000);
  }
-
 }
 
 /*
